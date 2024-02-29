@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 import 'package:survey_kit/src/presenter/survey_presenter.dart';
 import 'package:survey_kit/src/presenter/survey_state.dart';
 import 'package:survey_kit/src/widget/survey_progress_configuration.dart';
@@ -14,51 +15,62 @@ class SurveyProgress extends StatefulWidget {
 class _SurveyProgressState extends State<SurveyProgress> {
   @override
   Widget build(BuildContext context) {
-    final progressbarConfiguration =
-        context.read<SurveyProgressConfiguration>();
+    final progressbarConfiguration = context.read<SurveyProgressConfiguration>();
     return BlocBuilder<SurveyPresenter, SurveyState>(builder: (context, state) {
       if (state is PresentingSurveyState) {
+        // return Padding(
+        //   padding: progressbarConfiguration.padding,
+        //   child: Column(
+        //     crossAxisAlignment: CrossAxisAlignment.center,
+        //     mainAxisAlignment: MainAxisAlignment.center,
+        //     children: [
+        //       progressbarConfiguration.showLabel &&
+        //               progressbarConfiguration.label != null
+        //           ? progressbarConfiguration.label!(
+        //               state.currentStepIndex.toString(),
+        //               state.stepCount.toString())
+        //           : SizedBox.shrink(),
+        //       ClipRRect(
+        //         borderRadius: progressbarConfiguration.borderRadius ??
+        //             BorderRadius.circular(14.0),
+        //         child: Stack(
+        //           children: [
+        //             Container(
+        //               width: MediaQuery.of(context).size.width,
+        //               height: progressbarConfiguration.height,
+        //               color: progressbarConfiguration.progressbarColor,
+        //             ),
+        //             LayoutBuilder(
+        //               builder: (context, constraints) {
+        //                 return AnimatedContainer(
+        //                   duration: const Duration(milliseconds: 300),
+        //                   curve: Curves.linear,
+        //                   width: (state.currentStepIndex + 1) /
+        //                       state.stepCount *
+        //                       constraints.maxWidth,
+        //                   height: progressbarConfiguration.height,
+        //                   color:
+        //                       progressbarConfiguration.valueProgressbarColor ??
+        //                           Theme.of(context).primaryColor,
+        //                 );
+        //               },
+        //             ),
+        //           ],
+        //         ),
+        //       ),
+        //     ],
+        //   ),
+        // );
         return Padding(
-          padding: progressbarConfiguration.padding,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              progressbarConfiguration.showLabel &&
-                      progressbarConfiguration.label != null
-                  ? progressbarConfiguration.label!(
-                      state.currentStepIndex.toString(),
-                      state.stepCount.toString())
-                  : SizedBox.shrink(),
-              ClipRRect(
-                borderRadius: progressbarConfiguration.borderRadius ??
-                    BorderRadius.circular(14.0),
-                child: Stack(
-                  children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: progressbarConfiguration.height,
-                      color: progressbarConfiguration.progressbarColor,
-                    ),
-                    LayoutBuilder(
-                      builder: (context, constraints) {
-                        return AnimatedContainer(
-                          duration: const Duration(milliseconds: 300),
-                          curve: Curves.linear,
-                          width: (state.currentStepIndex + 1) /
-                              state.stepCount *
-                              constraints.maxWidth,
-                          height: progressbarConfiguration.height,
-                          color:
-                              progressbarConfiguration.valueProgressbarColor ??
-                                  Theme.of(context).primaryColor,
-                        );
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ],
+          padding: const EdgeInsets.only(right: 20.0),
+          child: CircularPercentIndicator(
+            radius: 12.0,
+            lineWidth: 3.0,
+            percent: (state.currentStepIndex + 1) / state.stepCount,
+            backgroundColor: Colors.grey[300] ?? Colors.grey,
+            progressColor: Theme.of(context).primaryColor,
+            animation: true,
+            animateFromLastPercent: true,
           ),
         );
       }

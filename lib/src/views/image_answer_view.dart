@@ -4,6 +4,7 @@ import 'package:survey_kit/src/answer_format/image_answer_format.dart';
 import 'package:survey_kit/src/result/question/image_question_result.dart';
 import 'package:survey_kit/src/steps/predefined_steps/question_step.dart';
 import 'package:survey_kit/src/views/widget/step_view.dart';
+import 'package:survey_kit/src/views/widget/step_view_title.dart';
 
 class ImageAnswerView extends StatefulWidget {
   final QuestionStep questionStep;
@@ -51,10 +52,8 @@ class _ImageAnswerViewState extends State<ImageAnswerView> {
       ),
       isValid: _isValid || widget.questionStep.isOptional,
       title: widget.questionStep.title.isNotEmpty
-          ? Text(
+          ? StepViewTitle(
               widget.questionStep.title,
-              style: Theme.of(context).textTheme.displayMedium,
-              textAlign: TextAlign.center,
             )
           : widget.questionStep.content,
       child: Padding(
@@ -83,8 +82,7 @@ class _ImageAnswerViewState extends State<ImageAnswerView> {
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                filePath
-                                    .split('/')[filePath.split('/').length - 1],
+                                filePath.split('/')[filePath.split('/').length - 1],
                                 style: TextStyle(
                                   fontSize: 12,
                                 ),
@@ -113,8 +111,7 @@ class _ImageAnswerViewState extends State<ImageAnswerView> {
                 GestureDetector(
                   child: Text('Take a picture'),
                   onTap: () {
-                    if (_imageAnswerFormat.hintImage != null &&
-                        _imageAnswerFormat.hintTitle != null) {
+                    if (_imageAnswerFormat.hintImage != null && _imageAnswerFormat.hintTitle != null) {
                       showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
@@ -126,9 +123,7 @@ class _ImageAnswerViewState extends State<ImageAnswerView> {
                             _imageAnswerFormat.hintImage.toString(),
                           ),
                           actions: [
-                            TextButton(
-                                onPressed: () => _openCamera(),
-                                child: Text('Open Camera')),
+                            TextButton(onPressed: () => _openCamera(), child: Text('Open Camera')),
                           ],
                         ),
                       );

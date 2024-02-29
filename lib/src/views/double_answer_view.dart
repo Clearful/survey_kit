@@ -4,6 +4,7 @@ import 'package:survey_kit/src/result/question/double_question_result.dart';
 import 'package:survey_kit/src/steps/predefined_steps/question_step.dart';
 import 'package:survey_kit/src/views/decoration/input_decoration.dart';
 import 'package:survey_kit/src/views/widget/step_view.dart';
+import 'package:survey_kit/src/views/widget/step_view_title.dart';
 
 class DoubleAnswerView extends StatefulWidget {
   final QuestionStep questionStep;
@@ -29,8 +30,7 @@ class _DoubleAnswerViewState extends State<DoubleAnswerView> {
   @override
   void initState() {
     super.initState();
-    _doubleAnswerFormat =
-        widget.questionStep.answerFormat as DoubleAnswerFormat;
+    _doubleAnswerFormat = widget.questionStep.answerFormat as DoubleAnswerFormat;
     _controller = TextEditingController();
     _controller.text = widget.result?.result?.toString() ?? '';
     _checkValidation(_controller.text);
@@ -58,16 +58,12 @@ class _DoubleAnswerViewState extends State<DoubleAnswerView> {
         startDate: _startDate,
         endDate: DateTime.now(),
         valueIdentifier: _controller.text,
-        result: double.tryParse(_controller.text) ??
-            _doubleAnswerFormat.defaultValue ??
-            null,
+        result: double.tryParse(_controller.text) ?? _doubleAnswerFormat.defaultValue ?? null,
       ),
       isValid: _isValid || widget.questionStep.isOptional,
       title: widget.questionStep.title.isNotEmpty
-          ? Text(
+          ? StepViewTitle(
               widget.questionStep.title,
-              style: Theme.of(context).textTheme.displayMedium,
-              textAlign: TextAlign.center,
             )
           : widget.questionStep.content,
       child: Padding(

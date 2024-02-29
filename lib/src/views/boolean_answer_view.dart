@@ -4,6 +4,8 @@ import 'package:survey_kit/src/result/question/boolean_question_result.dart';
 import 'package:survey_kit/src/steps/predefined_steps/question_step.dart';
 import 'package:survey_kit/src/views/widget/selection_list_tile.dart';
 import 'package:survey_kit/src/views/widget/step_view.dart';
+import 'package:survey_kit/src/views/widget/step_view_text.dart';
+import 'package:survey_kit/src/views/widget/step_view_title.dart';
 
 class BooleanAnswerView extends StatefulWidget {
   final QuestionStep questionStep;
@@ -28,9 +30,7 @@ class _BooleanAnswerViewState extends State<BooleanAnswerView> {
   void initState() {
     super.initState();
     _answerFormat = widget.questionStep.answerFormat as BooleanAnswerFormat;
-    _result = widget.result?.result ??
-        _answerFormat.defaultValue ??
-        _answerFormat.result;
+    _result = widget.result?.result ?? _answerFormat.defaultValue ?? _answerFormat.result;
     _startDate = DateTime.now();
   }
 
@@ -50,29 +50,23 @@ class _BooleanAnswerViewState extends State<BooleanAnswerView> {
         result: _result,
       ),
       title: widget.questionStep.title.isNotEmpty
-          ? Text(
+          ? StepViewTitle(
               widget.questionStep.title,
-              style: Theme.of(context).textTheme.displayMedium,
-              textAlign: TextAlign.center,
             )
           : widget.questionStep.content,
-      isValid: widget.questionStep.isOptional ||
-          (_result != BooleanResult.NONE && _result != null),
+      isValid: widget.questionStep.isOptional || (_result != BooleanResult.NONE && _result != null),
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(bottom: 32.0),
-            child: Text(
-              widget.questionStep.text,
-              style: Theme.of(context).textTheme.bodyMedium,
-              textAlign: TextAlign.center,
-            ),
+            padding: const EdgeInsets.only(bottom: 16.0),
+            child: widget.questionStep.text.isNotEmpty
+                ? StepViewText(
+                    widget.questionStep.text,
+                  )
+                : SizedBox.shrink(),
           ),
           Column(
             children: [
-              Divider(
-                color: Colors.grey,
-              ),
               SelectionListTile(
                 text: _answerFormat.positiveAnswer,
                 onTap: () {

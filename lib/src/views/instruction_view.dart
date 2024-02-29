@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:survey_kit/src/result/step/instruction_step_result.dart';
 import 'package:survey_kit/src/steps/predefined_steps/instruction_step.dart';
 import 'package:survey_kit/src/views/widget/step_view.dart';
+import 'package:survey_kit/src/views/widget/step_view_text.dart';
+import 'package:survey_kit/src/views/widget/step_view_title.dart';
 
 class InstructionView extends StatelessWidget {
   final InstructionStep instructionStep;
@@ -13,11 +15,7 @@ class InstructionView extends StatelessWidget {
   Widget build(BuildContext context) {
     return StepView(
       step: instructionStep,
-      title: Text(
-        instructionStep.title,
-        style: Theme.of(context).textTheme.displayMedium,
-        textAlign: TextAlign.center,
-      ),
+      title: StepViewTitle(instructionStep.title),
       resultFunction: () => InstructionStepResult(
         instructionStep.stepIdentifier,
         _startDate,
@@ -25,10 +23,8 @@ class InstructionView extends StatelessWidget {
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 14.0),
-        child: Text(
+        child: StepViewText(
           instructionStep.text,
-          style: Theme.of(context).textTheme.bodyMedium,
-          textAlign: TextAlign.center,
         ),
       ),
     );

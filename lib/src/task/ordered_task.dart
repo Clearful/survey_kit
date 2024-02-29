@@ -21,9 +21,7 @@ class OrderedTask extends Task {
   factory OrderedTask.fromJson(Map<String, dynamic> json) => OrderedTask(
         id: TaskIdentifier.fromJson(json),
         steps: json['steps'] != null
-            ? (json['steps'] as List<Map<String, dynamic>>)
-                .map((step) => Step.fromJson(step))
-                .toList()
+            ? (json['steps'] as List).map((step) => Step.fromJson(step as Map<String, dynamic>)).toList()
             : [],
       );
 

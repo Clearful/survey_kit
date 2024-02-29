@@ -3,6 +3,8 @@ import 'package:lottie/lottie.dart';
 import 'package:survey_kit/src/result/step/completion_step_result.dart';
 import 'package:survey_kit/src/steps/predefined_steps/completion_step.dart';
 import 'package:survey_kit/src/views/widget/step_view.dart';
+import 'package:survey_kit/src/views/widget/step_view_text.dart';
+import 'package:survey_kit/src/views/widget/step_view_title.dart';
 
 class CompletionView extends StatelessWidget {
   final CompletionStep completionStep;
@@ -20,17 +22,15 @@ class CompletionView extends StatelessWidget {
         _startDate,
         DateTime.now(),
       ),
-      title: Text(completionStep.title,
-          style: Theme.of(context).textTheme.displayMedium,
-          textAlign: TextAlign.center),
+      title: StepViewTitle(
+        completionStep.title,
+      ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 64.0),
         child: Column(
           children: [
-            Text(
+            StepViewText(
               completionStep.text,
-              style: Theme.of(context).textTheme.bodyMedium,
-              textAlign: TextAlign.center,
             ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 32.0),

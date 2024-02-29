@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:survey_kit/src/controller/survey_controller.dart';
 import 'package:survey_kit/src/result/question_result.dart';
 import 'package:survey_kit/src/steps/step.dart' as surveystep;
+import 'package:survey_kit/src/widget/full_width_btn.dart';
 
 class StepView extends StatelessWidget {
   final surveystep.Step step;
@@ -29,48 +30,63 @@ class StepView extends StatelessWidget {
   }
 
   Widget _content(SurveyController surveyController, BuildContext context) {
-    return SizedBox.expand(
-      child: Container(
-        color: Theme.of(context).colorScheme.background,
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 32.0),
-                  child: title,
-                ),
-                child,
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 32.0),
-                  child: OutlinedButton(
-                    onPressed: isValid || step.isOptional
-                        ? () => [
-                              FocusScope.of(context).hasFocus
-                                  ? FocusScope.of(context).unfocus()
-                                  : null,
-                              surveyController.nextStep(
-                                  context, resultFunction),
-                            ]
-                        : null,
-                    child: Text(
-                      context.read<Map<String, String>?>()?['next'] ??
-                          step.buttonText ??
-                          'Next',
-                      style: TextStyle(
-                        color: isValid
-                            ? Theme.of(context).primaryColor
-                            : Colors.grey,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      child: Column(
+        children: [
+          Expanded(
+            child: Container(
+              color: Theme.of(context).colorScheme.background,
+              child: Center(
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 12.0, bottom: 4.0),
+                        child: title,
                       ),
-                    ),
+                      child,
+                    ],
                   ),
                 ),
-              ],
+              ),
             ),
           ),
-        ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 24.0),
+            child:
+                // FilledButton(
+                //   onPressed: isValid || step.isOptional
+                //       ? () => [
+                //             FocusScope.of(context).hasFocus ? FocusScope.of(context).unfocus() : null,
+                //             surveyController.nextStep(context, resultFunction),
+                //           ]
+                //       : null,
+                //   child: Text(
+                //     context.read<Map<String, String>?>()?['next'] ?? step.buttonText ?? 'Next',
+                //     style: TextStyle(
+                //         // color: isValid ? Theme.of(context).primaryColor : Colors.grey,
+                //         ),
+                //   ),
+                // ),
+                FullWidthBtn(
+              onPressed: isValid || step.isOptional
+                  ? () => [
+                        FocusScope.of(context).hasFocus ? FocusScope.of(context).unfocus() : null,
+                        surveyController.nextStep(context, resultFunction),
+                      ]
+                  : null,
+              child: Text(
+                context.read<Map<String, String>?>()?['next'] ?? step.buttonText ?? 'Next',
+                style: TextStyle(
+                    // color: Theme.of(context).primaryColor,
+                    ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

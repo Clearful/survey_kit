@@ -4,6 +4,8 @@ import 'package:survey_kit/src/result/question/text_question_result.dart';
 import 'package:survey_kit/src/steps/predefined_steps/question_step.dart';
 import 'package:survey_kit/src/views/decoration/input_decoration.dart';
 import 'package:survey_kit/src/views/widget/step_view.dart';
+import 'package:survey_kit/src/views/widget/step_view_text.dart';
+import 'package:survey_kit/src/views/widget/step_view_title.dart';
 
 class TextAnswerView extends StatefulWidget {
   final QuestionStep questionStep;
@@ -31,8 +33,7 @@ class _TextAnswerViewState extends State<TextAnswerView> {
     super.initState();
     _controller = TextEditingController();
     _textAnswerFormat = widget.questionStep.answerFormat as TextAnswerFormat;
-    _controller.text =
-        widget.result?.result ?? _textAnswerFormat.defaultValue ?? '';
+    _controller.text = widget.result?.result ?? _textAnswerFormat.defaultValue ?? '';
     _checkValidation(_controller.text);
     _startDate = DateTime.now();
   }
@@ -66,23 +67,20 @@ class _TextAnswerViewState extends State<TextAnswerView> {
         result: _controller.text,
       ),
       title: widget.questionStep.title.isNotEmpty
-          ? Text(
+          ? StepViewTitle(
               widget.questionStep.title,
-              style: Theme.of(context).textTheme.displayMedium,
-              textAlign: TextAlign.center,
             )
           : widget.questionStep.content,
       isValid: _isValid || widget.questionStep.isOptional,
       child: Column(
         children: [
           Padding(
-            padding:
-                const EdgeInsets.only(bottom: 32.0, left: 14.0, right: 14.0),
-            child: Text(
-              widget.questionStep.text,
-              style: Theme.of(context).textTheme.bodyMedium,
-              textAlign: TextAlign.center,
-            ),
+            padding: const EdgeInsets.only(bottom: 16.0, left: 14.0, right: 14.0),
+            child: widget.questionStep.text.isNotEmpty
+                ? StepViewText(
+                    widget.questionStep.text,
+                  )
+                : SizedBox.shrink(),
           ),
           Container(
             width: MediaQuery.of(context).size.width,

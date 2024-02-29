@@ -5,8 +5,9 @@ import 'package:survey_kit/src/answer_format/time_answer_formart.dart';
 import 'package:survey_kit/src/result/question/time_question_result.dart';
 import 'package:survey_kit/src/steps/predefined_steps/question_step.dart';
 import 'package:survey_kit/src/views/widget/step_view.dart';
-import 'package:survey_kit/src/views/widget/time_picker_widget.dart'
-    as surveywidget;
+import 'package:survey_kit/src/views/widget/step_view_text.dart';
+import 'package:survey_kit/src/views/widget/step_view_title.dart';
+import 'package:survey_kit/src/views/widget/time_picker_widget.dart' as surveywidget;
 
 class TimeAnswerView extends StatefulWidget {
   final QuestionStep questionStep;
@@ -51,21 +52,19 @@ class _TimeAnswerViewState extends State<TimeAnswerView> {
       ),
       isValid: widget.questionStep.isOptional || _result != null,
       title: widget.questionStep.title.isNotEmpty
-          ? Text(
+          ? StepViewTitle(
               widget.questionStep.title,
-              style: Theme.of(context).textTheme.displayMedium,
-              textAlign: TextAlign.center,
             )
           : widget.questionStep.content,
       child: Column(
         children: [
           Padding(
             padding: const EdgeInsets.only(bottom: 14.0),
-            child: Text(
-              widget.questionStep.text,
-              style: Theme.of(context).textTheme.bodyMedium,
-              textAlign: TextAlign.center,
-            ),
+            child: widget.questionStep.text.isNotEmpty
+                ? StepViewText(
+                    widget.questionStep.text,
+                  )
+                : SizedBox.shrink(),
           ),
           PlatformWidget(
             material: (_, __) => _androidTimePicker(),

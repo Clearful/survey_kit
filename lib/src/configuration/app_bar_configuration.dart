@@ -6,6 +6,7 @@ class AppBarConfiguration {
   final bool? showProgress;
   final Widget? trailing;
   final bool? showCancelButton;
+  final Function? onBackOverride;
 
   const AppBarConfiguration({
     required this.canBack,
@@ -13,5 +14,6 @@ class AppBarConfiguration {
     this.showCancelButton = true,
     this.leading,
     this.trailing,
+    this.onBackOverride,
   });
 }

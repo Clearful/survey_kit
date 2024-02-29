@@ -3,6 +3,9 @@ import 'package:survey_kit/src/answer_format/scale_answer_format.dart';
 import 'package:survey_kit/src/result/question/scale_question_result.dart';
 import 'package:survey_kit/src/steps/predefined_steps/question_step.dart';
 import 'package:survey_kit/src/views/widget/step_view.dart';
+import 'package:survey_kit/src/views/widget/step_view_title.dart';
+
+import 'widget/step_view_text.dart';
 
 class ScaleAnswerView extends StatefulWidget {
   final QuestionStep questionStep;
@@ -43,22 +46,19 @@ class _ScaleAnswerViewState extends State<ScaleAnswerView> {
         result: _sliderValue,
       ),
       title: widget.questionStep.title.isNotEmpty
-          ? Text(
+          ? StepViewTitle(
               widget.questionStep.title,
-              style: Theme.of(context).textTheme.displayMedium,
-              textAlign: TextAlign.center,
             )
           : widget.questionStep.content,
       child: Column(
         children: [
           Padding(
-            padding:
-                const EdgeInsets.only(bottom: 32.0, left: 14.0, right: 14.0),
-            child: Text(
-              widget.questionStep.text,
-              style: Theme.of(context).textTheme.bodyMedium,
-              textAlign: TextAlign.center,
-            ),
+            padding: const EdgeInsets.only(bottom: 16.0, left: 14.0, right: 14.0),
+            child: widget.questionStep.text.isNotEmpty
+                ? StepViewText(
+                    widget.questionStep.text,
+                  )
+                : SizedBox.shrink(),
           ),
           Padding(
             padding: EdgeInsets.all(14.0),
@@ -122,8 +122,7 @@ class _ScaleAnswerViewState extends State<ScaleAnswerView> {
                       min: _scaleAnswerFormat.minimumValue,
                       max: _scaleAnswerFormat.maximumValue,
                       activeColor: Theme.of(context).primaryColor,
-                      divisions: (_scaleAnswerFormat.maximumValue -
-                              _scaleAnswerFormat.minimumValue) ~/
+                      divisions: (_scaleAnswerFormat.maximumValue - _scaleAnswerFormat.minimumValue) ~/
                           _scaleAnswerFormat.step,
                       label: _sliderValue.toString(),
                     ),

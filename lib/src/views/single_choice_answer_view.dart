@@ -5,6 +5,8 @@ import 'package:survey_kit/src/result/question/single_choice_question_result.dar
 import 'package:survey_kit/src/steps/predefined_steps/question_step.dart';
 import 'package:survey_kit/src/views/widget/selection_list_tile.dart';
 import 'package:survey_kit/src/views/widget/step_view.dart';
+import 'package:survey_kit/src/views/widget/step_view_text.dart';
+import 'package:survey_kit/src/views/widget/step_view_title.dart';
 
 class SingleChoiceAnswerView extends StatefulWidget {
   final QuestionStep questionStep;
@@ -28,10 +30,8 @@ class _SingleChoiceAnswerViewState extends State<SingleChoiceAnswerView> {
   @override
   void initState() {
     super.initState();
-    _singleChoiceAnswerFormat =
-        widget.questionStep.answerFormat as SingleChoiceAnswerFormat;
-    _selectedChoice =
-        widget.result?.result ?? _singleChoiceAnswerFormat.defaultSelection;
+    _singleChoiceAnswerFormat = widget.questionStep.answerFormat as SingleChoiceAnswerFormat;
+    _selectedChoice = widget.result?.result ?? _singleChoiceAnswerFormat.defaultSelection;
     _startDate = DateTime.now();
   }
 
@@ -48,49 +48,41 @@ class _SingleChoiceAnswerViewState extends State<SingleChoiceAnswerView> {
       ),
       isValid: widget.questionStep.isOptional || _selectedChoice != null,
       title: widget.questionStep.title.isNotEmpty
-          ? Text(
+          ? StepViewTitle(
               widget.questionStep.title,
-              style: Theme.of(context).textTheme.displayMedium,
-              textAlign: TextAlign.center,
             )
           : widget.questionStep.content,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 14.0),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 32.0),
-              child: Text(
-                widget.questionStep.text,
-                style: Theme.of(context).textTheme.bodyMedium,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Column(
-              children: [
-                Divider(
-                  color: Colors.grey,
-                ),
-                ..._singleChoiceAnswerFormat.textChoices.map(
-                  (TextChoice tc) {
-                    return SelectionListTile(
-                      text: tc.text,
-                      onTap: () {
-                        if (_selectedChoice == tc) {
-                          _selectedChoice = null;
-                        } else {
-                          _selectedChoice = tc;
-                        }
-                        setState(() {});
-                      },
-                      isSelected: _selectedChoice == tc,
-                    );
-                  },
-                ).toList(),
-              ],
-            ),
-          ],
-        ),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(bottom: 16.0),
+            child: widget.questionStep.text.isNotEmpty
+                ? StepViewText(
+                    widget.questionStep.text,
+                  )
+                : SizedBox.shrink(),
+          ),
+          Column(
+            children: [
+              ..._singleChoiceAnswerFormat.textChoices.map(
+                (TextChoice tc) {
+                  return SelectionListTile(
+                    text: tc.text,
+                    onTap: () {
+                      if (_selectedChoice == tc) {
+                        _selectedChoice = null;
+                      } else {
+                        _selectedChoice = tc;
+                      }
+                      setState(() {});
+                    },
+                    isSelected: _selectedChoice == tc,
+                  );
+                },
+              ).toList(),
+            ],
+          ),
+        ],
       ),
     );
   }

@@ -5,6 +5,8 @@ import 'package:survey_kit/src/answer_format/agreement_answer_format.dart';
 import 'package:survey_kit/src/result/question/agreement_question_result.dart';
 import 'package:survey_kit/src/steps/predefined_steps/question_step.dart';
 import 'package:survey_kit/src/views/widget/step_view.dart';
+import 'package:survey_kit/src/views/widget/step_view_text.dart';
+import 'package:survey_kit/src/views/widget/step_view_title.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AgreementAnswerView extends StatefulWidget {
@@ -29,11 +31,8 @@ class _AgreementAnswerViewState extends State<AgreementAnswerView> {
   @override
   void initState() {
     super.initState();
-    _agreementAnswerFormat =
-        widget.questionStep.answerFormat as AgreementAnswerFormat;
-    _result = widget.result?.result ??
-        _agreementAnswerFormat.defaultValue ??
-        BooleanResult.NEGATIVE;
+    _agreementAnswerFormat = widget.questionStep.answerFormat as AgreementAnswerFormat;
+    _result = widget.result?.result ?? _agreementAnswerFormat.defaultValue ?? BooleanResult.NEGATIVE;
     _startDate = DateTime.now();
   }
 
@@ -51,13 +50,10 @@ class _AgreementAnswerViewState extends State<AgreementAnswerView> {
         valueIdentifier: _result != null ? _result.toString() : '',
         result: _result,
       ),
-      isValid: widget.questionStep.isOptional ||
-          (_result != null && _result == BooleanResult.POSITIVE),
+      isValid: widget.questionStep.isOptional || (_result != null && _result == BooleanResult.POSITIVE),
       title: widget.questionStep.title.isNotEmpty
-          ? Text(
+          ? StepViewTitle(
               widget.questionStep.title,
-              style: Theme.of(context).textTheme.displayMedium,
-              textAlign: TextAlign.center,
             )
           : widget.questionStep.content,
       child: Padding(
@@ -65,12 +61,12 @@ class _AgreementAnswerViewState extends State<AgreementAnswerView> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.only(bottom: 32.0),
-              child: Text(
-                widget.questionStep.text,
-                style: Theme.of(context).textTheme.bodyMedium,
-                textAlign: TextAlign.center,
-              ),
+              padding: const EdgeInsets.only(bottom: 16.0),
+              child: widget.questionStep.text.isNotEmpty
+                  ? StepViewText(
+                      widget.questionStep.text,
+                    )
+                  : SizedBox.shrink(),
             ),
             Column(
               children: [
@@ -82,8 +78,7 @@ class _AgreementAnswerViewState extends State<AgreementAnswerView> {
                       styleSheet: markDownStyleSheet.copyWith(
                         textAlign: WrapAlignment.center,
                       ),
-                      onTapLink: (text, href, title) =>
-                          href != null ? launchUrl(Uri.parse(href)) : null,
+                      onTapLink: (text, href, title) => href != null ? launchUrl(Uri.parse(href)) : null,
                     ),
                   ),
                 Row(
@@ -115,10 +110,8 @@ class _AgreementAnswerViewState extends State<AgreementAnswerView> {
                         styleSheet: markDownStyleSheet.copyWith(
                           p: theme.textTheme.bodySmall,
                         ),
-                        data:
-                            _agreementAnswerFormat.markdownAgreementText ?? '',
-                        onTapLink: (text, href, title) =>
-                            href != null ? launchUrl(Uri.parse(href)) : null,
+                        data: _agreementAnswerFormat.markdownAgreementText ?? '',
+                        onTapLink: (text, href, title) => href != null ? launchUrl(Uri.parse(href)) : null,
                       ),
                     )),
                   ],

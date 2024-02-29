@@ -6,6 +6,8 @@ import 'package:survey_kit/src/answer_format/date_answer_format.dart';
 import 'package:survey_kit/src/result/question/date_question_result.dart';
 import 'package:survey_kit/src/steps/predefined_steps/question_step.dart';
 import 'package:survey_kit/src/views/widget/step_view.dart';
+import 'package:survey_kit/src/views/widget/step_view_text.dart';
+import 'package:survey_kit/src/views/widget/step_view_title.dart';
 
 class DateAnswerView extends StatefulWidget {
   /// [QuestionStep] which includes the [DateAnswerFormat]
@@ -34,9 +36,7 @@ class _DateAnswerViewState extends State<DateAnswerView> {
   void initState() {
     super.initState();
     _dateAnswerFormat = widget.questionStep.answerFormat as DateAnswerFormat;
-    _result = widget.result?.result ??
-        _dateAnswerFormat.defaultDate ??
-        DateTime.now();
+    _result = widget.result?.result ?? _dateAnswerFormat.defaultDate ?? DateTime.now();
   }
 
   void _handleDateChanged(DateTime date) {
@@ -56,21 +56,19 @@ class _DateAnswerViewState extends State<DateAnswerView> {
       ),
       isValid: widget.questionStep.isOptional || _result != null,
       title: widget.questionStep.title.isNotEmpty
-          ? Text(
+          ? StepViewTitle(
               widget.questionStep.title,
-              style: Theme.of(context).textTheme.displayMedium,
-              textAlign: TextAlign.center,
             )
           : widget.questionStep.content,
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(bottom: 32.0),
-            child: Text(
-              widget.questionStep.text,
-              style: Theme.of(context).textTheme.bodyMedium,
-              textAlign: TextAlign.center,
-            ),
+            padding: const EdgeInsets.only(bottom: 16.0),
+            child: widget.questionStep.text.isNotEmpty
+                ? StepViewText(
+                    widget.questionStep.text,
+                  )
+                : SizedBox.shrink(),
           ),
           PlatformWidget(
             material: (_, __) => _androidDatePicker(),

@@ -14,6 +14,7 @@ import 'package:survey_kit/src/task/navigable_task.dart';
 import 'package:survey_kit/src/task/ordered_task.dart';
 import 'package:survey_kit/src/task/task.dart';
 import 'package:survey_kit/src/views/widget/survey_app_bar.dart';
+import 'package:survey_kit/src/widget/keyboard_dismisser.dart';
 import 'package:survey_kit/src/widget/survey_progress_configuration.dart';
 
 class SurveyKit extends StatefulWidget {
@@ -88,12 +89,10 @@ class _SurveyKitState extends State<SurveyKit> {
       child: MultiProvider(
         providers: [
           Provider<TaskNavigator>.value(value: _taskNavigator),
-          Provider<SurveyController>.value(
-              value: widget.surveyController ?? SurveyController()),
+          Provider<SurveyController>.value(value: widget.surveyController ?? SurveyController()),
           Provider<bool>.value(value: widget.showProgress ?? true),
           Provider<SurveyProgressConfiguration>.value(
-            value: widget.surveyProgressbarConfiguration ??
-                SurveyProgressConfiguration(),
+            value: widget.surveyProgressbarConfiguration ?? SurveyProgressConfiguration(),
           ),
           Provider<Map<String, String>?>.value(value: widget.localizations)
         ],
@@ -128,8 +127,7 @@ class SurveyPage extends StatefulWidget {
   _SurveyPageState createState() => _SurveyPageState();
 }
 
-class _SurveyPageState extends State<SurveyPage>
-    with SingleTickerProviderStateMixin {
+class _SurveyPageState extends State<SurveyPage> with SingleTickerProviderStateMixin {
   late final TabController tabController;
 
   @override
@@ -146,59 +144,60 @@ class _SurveyPageState extends State<SurveyPage>
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<SurveyPresenter, SurveyState>(
-      listenWhen: (previous, current) => previous != current,
-      listener: (context, state) async {
-        if (state is SurveyResultState) {
-          widget.onResult.call(state.result);
-        }
-        if (state is PresentingSurveyState) {
-          tabController.animateTo(state.currentStepIndex);
-        }
-      },
-      builder: (BuildContext context, SurveyState state) {
-        if (state is PresentingSurveyState) {
-          return Scaffold(
-            backgroundColor: Colors.transparent,
-            appBar: state.currentStep.showAppBar
-                ? PreferredSize(
-                    preferredSize: Size(
-                      double.infinity,
-                      70.0,
-                    ),
-                    child: widget.appBar != null
-                        ? widget.appBar!.call(state.appBarConfiguration)
-                        : SurveyAppBar(
-                            appBarConfiguration: state.appBarConfiguration,
+    return KeyboardDismisser(
+      child: BlocConsumer<SurveyPresenter, SurveyState>(
+        listenWhen: (previous, current) => previous != current,
+        listener: (context, state) async {
+          if (state is SurveyResultState) {
+            widget.onResult.call(state.result);
+          }
+          if (state is PresentingSurveyState) {
+            tabController.animateTo(state.currentStepIndex);
+          }
+        },
+        builder: (BuildContext context, SurveyState state) {
+          if (state is PresentingSurveyState) {
+            return Scaffold(
+              appBar: state.currentStep.showAppBar
+                  ? PreferredSize(
+                      preferredSize: Size(
+                        double.infinity,
+                        70.0,
+                      ),
+                      child: widget.appBar != null
+                          ? widget.appBar!.call(state.appBarConfiguration)
+                          : SurveyAppBar(
+                              appBarConfiguration: state.appBarConfiguration,
+                            ),
+                    )
+                  : null,
+              body: TabBarView(
+                physics: NeverScrollableScrollPhysics(),
+                controller: tabController,
+                children: state.steps
+                    .map(
+                      (e) => _SurveyView(
+                        id: e.stepIdentifier.id,
+                        createView: () => e.createView(
+                          questionResult: state.questionResults.firstWhereOrNull(
+                            (element) => element.id == e.stepIdentifier,
                           ),
-                  )
-                : null,
-            body: TabBarView(
-              physics: NeverScrollableScrollPhysics(),
-              controller: tabController,
-              children: state.steps
-                  .map(
-                    (e) => _SurveyView(
-                      id: e.stepIdentifier.id,
-                      createView: () => e.createView(
-                        questionResult: state.questionResults.firstWhereOrNull(
-                          (element) => element.id == e.stepIdentifier,
                         ),
                       ),
-                    ),
-                  )
-                  .toList(),
-            ),
-          );
-        } else if (state is SurveyResultState && state.currentStep != null) {
+                    )
+                    .toList(),
+              ),
+            );
+          } else if (state is SurveyResultState && state.currentStep != null) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
           return Center(
             child: CircularProgressIndicator(),
           );
-        }
-        return Center(
-          child: CircularProgressIndicator(),
-        );
-      },
+        },
+      ),
     );
   }
 }
