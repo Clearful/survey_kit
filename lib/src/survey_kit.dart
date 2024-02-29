@@ -27,6 +27,9 @@ class SurveyKit extends StatefulWidget {
   /// Function which is called after the results are collected
   final Function(SurveyResult) onResult;
 
+  /// Function which is called after each step is presented
+  final Function(SurveyState)? onPresent;
+
   /// [SurveyController] to override the navigation methods
   /// onNextStep, onBackStep, onCloseSurvey
   final SurveyController? surveyController;
@@ -45,6 +48,7 @@ class SurveyKit extends StatefulWidget {
   const SurveyKit({
     required this.task,
     required this.onResult,
+    this.onPresent,
     this.themeData,
     this.surveyController,
     this.appBar,
@@ -104,6 +108,7 @@ class _SurveyKitState extends State<SurveyKit> {
           child: SurveyPage(
             length: widget.task.steps.length,
             onResult: widget.onResult,
+            onPresent: widget.onPresent,
             appBar: widget.appBar,
           ),
         ),
@@ -116,10 +121,12 @@ class SurveyPage extends StatefulWidget {
   final int length;
   final Widget Function(AppBarConfiguration appBarConfiguration)? appBar;
   final Function(SurveyResult) onResult;
+  final Function(SurveyState)? onPresent;
 
   const SurveyPage({
     required this.length,
     required this.onResult,
+    this.onPresent,
     this.appBar,
   });
 
@@ -153,6 +160,7 @@ class _SurveyPageState extends State<SurveyPage> with SingleTickerProviderStateM
           }
           if (state is PresentingSurveyState) {
             tabController.animateTo(state.currentStepIndex);
+            widget.onPresent?.call(state);
           }
         },
         builder: (BuildContext context, SurveyState state) {
