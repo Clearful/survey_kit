@@ -30,6 +30,9 @@ class SurveyKit extends StatefulWidget {
   /// Function which is called after each step is presented
   final Function(SurveyState)? onPresent;
 
+  /// SurveyState listener
+  final Function(SurveyState)? listener;
+
   /// [SurveyController] to override the navigation methods
   /// onNextStep, onBackStep, onCloseSurvey
   final SurveyController? surveyController;
@@ -49,6 +52,7 @@ class SurveyKit extends StatefulWidget {
     required this.task,
     required this.onResult,
     this.onPresent,
+    this.listener,
     this.themeData,
     this.surveyController,
     this.appBar,
@@ -109,6 +113,7 @@ class _SurveyKitState extends State<SurveyKit> {
             length: widget.task.steps.length,
             onResult: widget.onResult,
             onPresent: widget.onPresent,
+            listener: widget.listener,
             appBar: widget.appBar,
           ),
         ),
@@ -122,11 +127,13 @@ class SurveyPage extends StatefulWidget {
   final Widget Function(AppBarConfiguration appBarConfiguration)? appBar;
   final Function(SurveyResult) onResult;
   final Function(SurveyState)? onPresent;
+  final Function(SurveyState)? listener;
 
   const SurveyPage({
     required this.length,
     required this.onResult,
     this.onPresent,
+    this.listener,
     this.appBar,
   });
 
@@ -155,6 +162,7 @@ class _SurveyPageState extends State<SurveyPage> with SingleTickerProviderStateM
       child: BlocConsumer<SurveyPresenter, SurveyState>(
         listenWhen: (previous, current) => previous != current,
         listener: (context, state) async {
+          widget.listener?.call(state);
           if (state is SurveyResultState) {
             widget.onResult.call(state.result);
           }
