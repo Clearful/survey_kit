@@ -52,12 +52,12 @@ class SelectionListTile extends StatelessWidget {
       child: GestureDetector(
         onTap: () => onTap.call(),
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           decoration: BoxDecoration(
-            color: isSelected ? Theme.of(context).primaryColor : Colors.white,
+            color: isSelected ? Theme.of(context).colorScheme.primaryContainer : Theme.of(context).colorScheme.surface,
             borderRadius: BorderRadius.circular(50),
             border: Border.all(
-              color: isSelected ? Theme.of(context).primaryColor : Colors.grey,
+              color: isSelected ? Theme.of(context).colorScheme.primary : Theme.of(context).dividerColor,
               width: 1,
             ),
           ),
@@ -67,15 +67,23 @@ class SelectionListTile extends StatelessWidget {
               Expanded(
                 child: Text(
                   text,
-                  style: TextStyle(
-                    color: isSelected ? Colors.white : Colors.black,
-                    fontSize: 16,
-                  ),
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        color: isSelected
+                            ? Theme.of(context).colorScheme.primary
+                            : Theme.of(context).colorScheme.onSurface,
+                        fontSize: 16,
+                      ),
                 ),
               ),
               isSelected
-                  ? Icon(Icons.check_circle, color: Colors.white)
-                  : Icon(Icons.check_circle, color: Colors.white),
+                  ? Icon(
+                      Icons.check_circle,
+                      color: Theme.of(context).chipTheme.selectedColor,
+                    )
+                  : Icon(
+                      Icons.check_circle,
+                      color: Theme.of(context).chipTheme.backgroundColor,
+                    ),
             ],
           ),
         ),

@@ -80,8 +80,12 @@ class StepView extends StatelessWidget {
                   : null,
               child: Text(
                 context.read<Map<String, String>?>()?['next'] ?? step.buttonText ?? 'Next',
-                style: TextStyle(
-                    // color: Theme.of(context).primaryColor,
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.w800,
+                      fontSize: 15,
+                      // height: 1.17,
+                      height: 1.125,
+                      letterSpacing: .5,
                     ),
               ),
             ),
