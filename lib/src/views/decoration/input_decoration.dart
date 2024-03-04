@@ -12,7 +12,7 @@ InputDecoration textFieldInputDecoration(BuildContext context, {String hint = ''
           Radius.zero,
         ),
         borderSide: BorderSide(
-          color: Colors.black.withOpacity(0.2),
+          color: Theme.of(context).inputDecorationTheme.hintStyle?.color ?? Colors.blue,
         ),
       ),
       enabledBorder: OutlineInputBorder(
@@ -20,7 +20,7 @@ InputDecoration textFieldInputDecoration(BuildContext context, {String hint = ''
           Radius.zero,
         ),
         borderSide: BorderSide(
-          color: Colors.black.withOpacity(0.2),
+          color: Theme.of(context).inputDecorationTheme.hintStyle?.color ?? Colors.blue,
         ),
       ),
       hintText: hint,

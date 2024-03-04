@@ -77,9 +77,8 @@ class _IntegerAnswerViewState extends State<IntegerAnswerView> {
               context,
               hint: _integerAnswerFormat.hint,
             ),
-            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: Theme.of(context).inputDecorationTheme.hintStyle?.color ?? Colors.black,
-                ),
+            style: Theme.of(context).textTheme.bodyLarge,
+            cursorColor: Theme.of(context).textSelectionTheme.cursorColor,
             controller: _controller,
             onChanged: (String value) {
               _checkValidation(value);

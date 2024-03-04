@@ -121,7 +121,7 @@ class _ScaleAnswerViewState extends State<ScaleAnswerView> {
                       },
                       min: _scaleAnswerFormat.minimumValue,
                       max: _scaleAnswerFormat.maximumValue,
-                      activeColor: Theme.of(context).primaryColor,
+                      activeColor: Theme.of(context).colorScheme.primary,
                       divisions: (_scaleAnswerFormat.maximumValue - _scaleAnswerFormat.minimumValue) ~/
                           _scaleAnswerFormat.step,
                       label: _sliderValue.toString(),

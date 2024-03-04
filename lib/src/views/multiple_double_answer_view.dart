@@ -119,8 +119,10 @@ class _MultipleDoubleAnswerViewState extends State<MultipleDoubleAnswerView> {
                         value: double.parse(value),
                       );
                     },
+                    style: Theme.of(context).textTheme.bodyLarge,
                     keyboardType: TextInputType.number,
                     textAlign: TextAlign.center,
+                    cursorColor: Theme.of(context).textSelectionTheme.cursorColor,
                   );
                 }).toList(),
               ],

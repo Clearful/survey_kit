@@ -128,6 +128,8 @@ class _MultipleChoiceAutoCompleteAnswerViewState extends State<MultipleChoiceAut
                         hintText: 'Write other information here',
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                       ),
+                      style: Theme.of(context).textTheme.bodyLarge,
+                      cursorColor: Theme.of(context).textSelectionTheme.cursorColor,
                     ),
                   ),
                 ),

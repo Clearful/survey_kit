@@ -76,10 +76,12 @@ class _DoubleAnswerViewState extends State<DoubleAnswerView> {
               context,
               hint: _doubleAnswerFormat.hint,
             ),
+            style: Theme.of(context).textTheme.bodyLarge,
             controller: _controller,
             onChanged: (String value) {
               _checkValidation(value);
             },
+            cursorColor: Theme.of(context).textSelectionTheme.cursorColor,
             keyboardType: TextInputType.number,
             textAlign: TextAlign.center,
           ),

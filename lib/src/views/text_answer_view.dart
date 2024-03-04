@@ -92,6 +92,8 @@ class _TextAnswerViewState extends State<TextAnswerView> {
                 context,
                 hint: _textAnswerFormat.hint,
               ),
+              cursorColor: Theme.of(context).textSelectionTheme.cursorColor,
+              style: Theme.of(context).textTheme.bodyLarge,
               controller: _controller,
               textAlign: TextAlign.center,
               onChanged: (String text) {

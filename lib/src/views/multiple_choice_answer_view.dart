@@ -123,6 +123,8 @@ class _MultipleChoiceAnswerView extends State<MultipleChoiceAnswerView> {
                         hintText: 'Write other information here',
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                       ),
+                      style: Theme.of(context).textTheme.bodyLarge,
+                      cursorColor: Theme.of(context).textSelectionTheme.cursorColor,
                     ),
                   ),
                 ),
