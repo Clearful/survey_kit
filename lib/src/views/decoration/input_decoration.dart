@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-InputDecoration textFieldInputDecoration({String hint = ''}) => InputDecoration(
+InputDecoration textFieldInputDecoration(BuildContext context, {String hint = ''}) => InputDecoration(
       contentPadding: const EdgeInsets.only(
         left: 10,
         bottom: 10,
@@ -24,4 +24,5 @@ InputDecoration textFieldInputDecoration({String hint = ''}) => InputDecoration(
         ),
       ),
       hintText: hint,
+      labelStyle: Theme.of(context).inputDecorationTheme.hintStyle,
     );

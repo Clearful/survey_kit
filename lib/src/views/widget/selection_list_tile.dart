@@ -68,6 +68,7 @@ class SelectionListTile extends StatelessWidget {
                 child: Text(
                   text,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        fontWeight: FontWeight.w600,
                         color: isSelected
                             ? Theme.of(context).colorScheme.primary
                             : Theme.of(context).colorScheme.onSurface,
@@ -82,7 +83,7 @@ class SelectionListTile extends StatelessWidget {
                     )
                   : Icon(
                       Icons.check_circle,
-                      color: Theme.of(context).chipTheme.backgroundColor,
+                      color: Theme.of(context).colorScheme.surface,
                     ),
             ],
           ),

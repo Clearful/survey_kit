@@ -74,8 +74,12 @@ class _IntegerAnswerViewState extends State<IntegerAnswerView> {
             textInputAction: TextInputAction.next,
             autofocus: true,
             decoration: textFieldInputDecoration(
+              context,
               hint: _integerAnswerFormat.hint,
             ),
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  color: Theme.of(context).inputDecorationTheme.hintStyle?.color ?? Colors.black,
+                ),
             controller: _controller,
             onChanged: (String value) {
               _checkValidation(value);

@@ -73,6 +73,7 @@ class _DoubleAnswerViewState extends State<DoubleAnswerView> {
           child: TextField(
             autofocus: true,
             decoration: textFieldInputDecoration(
+              context,
               hint: _doubleAnswerFormat.hint,
             ),
             controller: _controller,

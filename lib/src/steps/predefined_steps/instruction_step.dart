@@ -16,7 +16,7 @@ class InstructionStep extends Step {
     required this.title,
     required this.text,
     bool isOptional = false,
-    String buttonText = 'Next',
+    String buttonText = 'Continue',
     StepIdentifier? stepIdentifier,
     bool? canGoBack,
     bool? showProgress,
@@ -37,14 +37,9 @@ class InstructionStep extends Step {
     );
   }
 
-  factory InstructionStep.fromJson(Map<String, dynamic> json) =>
-      _$InstructionStepFromJson(json);
+  factory InstructionStep.fromJson(Map<String, dynamic> json) => _$InstructionStepFromJson(json);
   Map<String, dynamic> toJson() => _$InstructionStepToJson(this);
 
-  bool operator ==(o) =>
-      super == (o) &&
-      o is InstructionStep &&
-      o.title == title &&
-      o.text == text;
+  bool operator ==(o) => super == (o) && o is InstructionStep && o.title == title && o.text == text;
   int get hashCode => super.hashCode ^ title.hashCode ^ text.hashCode;
 }

@@ -89,6 +89,7 @@ class _TextAnswerViewState extends State<TextAnswerView> {
               textInputAction: TextInputAction.next,
               autofocus: true,
               decoration: textFieldInputDecoration(
+                context,
                 hint: _textAnswerFormat.hint,
               ),
               controller: _controller,

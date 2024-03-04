@@ -58,7 +58,7 @@ class QuestionStep extends Step {
 
   QuestionStep({
     bool isOptional = false,
-    String buttonText = 'Next',
+    String buttonText = 'Continue',
     StepIdentifier? stepIdentifier,
     bool showAppBar = true,
     this.title = '',
@@ -161,7 +161,6 @@ class QuestionStep extends Step {
     }
   }
 
-  factory QuestionStep.fromJson(Map<String, dynamic> json) =>
-      _$QuestionStepFromJson(json);
+  factory QuestionStep.fromJson(Map<String, dynamic> json) => _$QuestionStepFromJson(json);
   Map<String, dynamic> toJson() => _$QuestionStepToJson(this);
 }
