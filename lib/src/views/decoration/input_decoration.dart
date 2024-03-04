@@ -24,5 +24,6 @@ InputDecoration textFieldInputDecoration(BuildContext context, {String hint = ''
         ),
       ),
       hintText: hint,
+      hintStyle: Theme.of(context).inputDecorationTheme.labelStyle,
       labelStyle: Theme.of(context).inputDecorationTheme.labelStyle,
     );
