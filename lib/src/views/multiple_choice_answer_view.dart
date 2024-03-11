@@ -33,7 +33,7 @@ class _MultipleChoiceAnswerView extends State<MultipleChoiceAnswerView> {
   void initState() {
     super.initState();
     _multipleChoiceAnswer = widget.questionStep.answerFormat as MultipleChoiceAnswerFormat;
-    _selectedChoices = widget.result?.result ?? _multipleChoiceAnswer.defaultSelection;
+    _selectedChoices = widget.result?.result?.toList() ?? _multipleChoiceAnswer.defaultSelection.toList();
     _startDateTime = DateTime.now();
   }
 

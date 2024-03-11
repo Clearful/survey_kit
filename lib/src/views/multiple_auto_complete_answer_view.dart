@@ -29,7 +29,7 @@ class _MultipleChoiceAutoCompleteAnswerViewState extends State<MultipleChoiceAut
   void initState() {
     super.initState();
     _multipleChoiceAnswer = widget.questionStep.answerFormat as MultipleChoiceAutoCompleteAnswerFormat;
-    _selectedChoices = widget.result?.result ?? _multipleChoiceAnswer.defaultSelection;
+    _selectedChoices = widget.result?.result?.toList() ?? _multipleChoiceAnswer.defaultSelection.toList();
     _startDateTime = DateTime.now();
   }
 
