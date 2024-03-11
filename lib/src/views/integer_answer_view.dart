@@ -83,6 +83,7 @@ class _IntegerAnswerViewState extends State<IntegerAnswerView> {
             onChanged: (String value) {
               _checkValidation(value);
             },
+            
             keyboardType: TextInputType.number,
             textAlign: TextAlign.center,
           ),

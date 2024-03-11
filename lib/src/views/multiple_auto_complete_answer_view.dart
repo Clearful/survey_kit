@@ -94,7 +94,7 @@ class _MultipleChoiceAutoCompleteAnswerViewState extends State<MultipleChoiceAut
                   .toList(),
               if (_multipleChoiceAnswer.otherField) ...[
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 14.0),
+                  padding: const EdgeInsets.symmetric(vertical: 6.0),
                   child: ListTile(
                     title: TextField(
                       onChanged: (v) {
@@ -125,6 +125,7 @@ class _MultipleChoiceAutoCompleteAnswerViewState extends State<MultipleChoiceAut
                       decoration: InputDecoration(
                         labelText: 'Other',
                         labelStyle: Theme.of(context).textTheme.headlineSmall,
+                        hintStyle: Theme.of(context).inputDecorationTheme.labelStyle,
                         hintText: 'Write other information here',
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                       ),
@@ -132,9 +133,6 @@ class _MultipleChoiceAutoCompleteAnswerViewState extends State<MultipleChoiceAut
                       cursorColor: Theme.of(context).textSelectionTheme.cursorColor,
                     ),
                   ),
-                ),
-                Divider(
-                  color: Colors.grey,
                 ),
               ],
             ],

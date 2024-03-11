@@ -89,7 +89,7 @@ class _MultipleChoiceAnswerView extends State<MultipleChoiceAnswerView> {
                   .toList(),
               if (_multipleChoiceAnswer.otherField) ...[
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 14.0),
+                  padding: const EdgeInsets.symmetric(vertical: 6.0),
                   child: ListTile(
                     title: TextField(
                       onChanged: (v) {
@@ -120,6 +120,7 @@ class _MultipleChoiceAnswerView extends State<MultipleChoiceAnswerView> {
                       decoration: InputDecoration(
                         labelText: 'Other',
                         labelStyle: Theme.of(context).textTheme.headlineSmall,
+                        hintStyle: Theme.of(context).inputDecorationTheme.labelStyle,
                         hintText: 'Write other information here',
                         floatingLabelBehavior: FloatingLabelBehavior.always,
                       ),
@@ -127,9 +128,6 @@ class _MultipleChoiceAnswerView extends State<MultipleChoiceAnswerView> {
                       cursorColor: Theme.of(context).textSelectionTheme.cursorColor,
                     ),
                   ),
-                ),
-                Divider(
-                  color: Colors.grey,
                 ),
               ],
             ],
