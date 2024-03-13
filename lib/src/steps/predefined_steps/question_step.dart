@@ -55,6 +55,8 @@ class QuestionStep extends Step {
   @JsonKey(includeFromJson: false, includeToJson: false)
   final Widget content;
   final AnswerFormat answerFormat;
+  @JsonKey(defaultValue: false)
+  final bool randomizeOrder;
 
   QuestionStep({
     bool isOptional = false,
@@ -64,12 +66,14 @@ class QuestionStep extends Step {
     this.title = '',
     this.text = '',
     this.content = const SizedBox.shrink(),
+    this.randomizeOrder = false,
     required this.answerFormat,
   }) : super(
           stepIdentifier: stepIdentifier,
           isOptional: isOptional,
           buttonText: buttonText,
           showAppBar: showAppBar,
+          randomizeOrder: randomizeOrder,
         );
 
   @override

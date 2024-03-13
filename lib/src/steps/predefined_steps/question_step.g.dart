@@ -16,6 +16,7 @@ QuestionStep _$QuestionStepFromJson(Map<String, dynamic> json) => QuestionStep(
       showAppBar: json['showAppBar'] as bool? ?? true,
       title: json['title'] as String? ?? '',
       text: json['text'] as String? ?? '',
+      randomizeOrder: json['randomizeOrder'] as bool? ?? false,
       answerFormat:
           AnswerFormat.fromJson(json['answerFormat'] as Map<String, dynamic>),
     );
@@ -29,4 +30,5 @@ Map<String, dynamic> _$QuestionStepToJson(QuestionStep instance) =>
       'title': instance.title,
       'text': instance.text,
       'answerFormat': instance.answerFormat,
+      'randomizeOrder': instance.randomizeOrder,
     };

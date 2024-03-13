@@ -16,6 +16,7 @@ abstract class Step {
   final bool canGoBack;
   final bool showProgress;
   final bool showAppBar;
+  final bool randomizeOrder;
 
   Step({
     StepIdentifier? stepIdentifier,
@@ -24,6 +25,7 @@ abstract class Step {
     this.canGoBack = true,
     this.showProgress = true,
     this.showAppBar = true,
+    this.randomizeOrder = false,
   }) : stepIdentifier = stepIdentifier ?? StepIdentifier();
 
   Widget createView({required QuestionResult? questionResult});
@@ -43,10 +45,6 @@ abstract class Step {
   Map<String, dynamic> toJson();
 
   bool operator ==(o) =>
-      o is Step &&
-      o.stepIdentifier == stepIdentifier &&
-      o.isOptional == isOptional &&
-      o.buttonText == buttonText;
-  int get hashCode =>
-      stepIdentifier.hashCode ^ isOptional.hashCode ^ buttonText.hashCode;
+      o is Step && o.stepIdentifier == stepIdentifier && o.isOptional == isOptional && o.buttonText == buttonText;
+  int get hashCode => stepIdentifier.hashCode ^ isOptional.hashCode ^ buttonText.hashCode;
 }
