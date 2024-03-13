@@ -89,7 +89,7 @@ class _MultipleChoiceAnswerView extends State<MultipleChoiceAnswerView> {
                   .toList(),
               if (_multipleChoiceAnswer.otherField) ...[
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 12.0),
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
                   child: TextField(
                     onChanged: (v) {
                       int? currentIndex;

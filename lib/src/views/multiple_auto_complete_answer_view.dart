@@ -94,7 +94,7 @@ class _MultipleChoiceAutoCompleteAnswerViewState extends State<MultipleChoiceAut
                   .toList(),
               if (_multipleChoiceAnswer.otherField) ...[
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 12.0),
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
                   child: TextField(
                     onChanged: (v) {
                       int? currentIndex;
