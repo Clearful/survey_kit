@@ -63,12 +63,13 @@ class SelectionListTile extends StatelessWidget {
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Expanded(
                 child: Text(
                   text,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.w700,
                         color: isSelected
                             ? Theme.of(context).colorScheme.primary
                             : Theme.of(context).colorScheme.onSurface,

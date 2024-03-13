@@ -89,44 +89,42 @@ class _MultipleChoiceAnswerView extends State<MultipleChoiceAnswerView> {
                   .toList(),
               if (_multipleChoiceAnswer.otherField) ...[
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 6.0),
-                  child: ListTile(
-                    title: TextField(
-                      onChanged: (v) {
-                        int? currentIndex;
-                        final otherTextChoice = _selectedChoices.firstWhereIndexedOrNull((index, element) {
-                          final isOtherField = element.text == 'Other';
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: TextField(
+                    onChanged: (v) {
+                      int? currentIndex;
+                      final otherTextChoice = _selectedChoices.firstWhereIndexedOrNull((index, element) {
+                        final isOtherField = element.text == 'Other';
 
-                          if (isOtherField) {
-                            currentIndex = index;
+                        if (isOtherField) {
+                          currentIndex = index;
+                        }
+
+                        return isOtherField;
+                      });
+
+                      setState(() {
+                        if (v.isEmpty && otherTextChoice != null) {
+                          _selectedChoices.remove(otherTextChoice);
+                        } else if (v.isNotEmpty) {
+                          final updatedTextChoice = TextChoice(text: 'Other', value: v);
+                          if (otherTextChoice == null) {
+                            _selectedChoices.add(updatedTextChoice);
+                          } else if (currentIndex != null) {
+                            _selectedChoices[currentIndex!] = updatedTextChoice;
                           }
-
-                          return isOtherField;
-                        });
-
-                        setState(() {
-                          if (v.isEmpty && otherTextChoice != null) {
-                            _selectedChoices.remove(otherTextChoice);
-                          } else if (v.isNotEmpty) {
-                            final updatedTextChoice = TextChoice(text: 'Other', value: v);
-                            if (otherTextChoice == null) {
-                              _selectedChoices.add(updatedTextChoice);
-                            } else if (currentIndex != null) {
-                              _selectedChoices[currentIndex!] = updatedTextChoice;
-                            }
-                          }
-                        });
-                      },
-                      decoration: InputDecoration(
-                        labelText: 'Other',
-                        labelStyle: Theme.of(context).textTheme.headlineSmall,
-                        hintStyle: Theme.of(context).inputDecorationTheme.labelStyle,
-                        hintText: 'Write other information here',
-                        floatingLabelBehavior: FloatingLabelBehavior.always,
-                      ),
-                      style: Theme.of(context).textTheme.bodyLarge,
-                      cursorColor: Theme.of(context).textSelectionTheme.cursorColor,
+                        }
+                      });
+                    },
+                    decoration: InputDecoration(
+                      labelText: 'Other',
+                      labelStyle: Theme.of(context).textTheme.headlineSmall,
+                      hintStyle: Theme.of(context).inputDecorationTheme.labelStyle,
+                      hintText: 'Other',
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
                     ),
+                    style: Theme.of(context).textTheme.bodyLarge,
+                    cursorColor: Theme.of(context).textSelectionTheme.cursorColor,
                   ),
                 ),
               ],
