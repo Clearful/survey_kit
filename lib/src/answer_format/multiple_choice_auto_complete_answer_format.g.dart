@@ -22,13 +22,15 @@ MultipleChoiceAutoCompleteAnswerFormat
                   .toList() ??
               [],
           otherField: json['otherField'] as bool? ?? false,
+          randomizeOrder: json['randomizeOrder'] as bool? ?? false,
         );
 
 Map<String, dynamic> _$MultipleChoiceAutoCompleteAnswerFormatToJson(
         MultipleChoiceAutoCompleteAnswerFormat instance) =>
     <String, dynamic>{
-      'textChoices': instance.textChoices,
       'defaultSelection': instance.defaultSelection,
       'suggestions': instance.suggestions,
       'otherField': instance.otherField,
+      'randomizeOrder': instance.randomizeOrder,
+      'textChoices': instance.textChoices,
     };

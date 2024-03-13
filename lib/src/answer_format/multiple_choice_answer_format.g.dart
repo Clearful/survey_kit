@@ -18,13 +18,15 @@ MultipleChoiceAnswerFormat _$MultipleChoiceAnswerFormatFromJson(
           [],
       otherField: json['otherField'] as bool? ?? false,
       maxAnswers: json['maxAnswers'] as int? ?? 100,
+      randomizeOrder: json['randomizeOrder'] as bool? ?? false,
     );
 
 Map<String, dynamic> _$MultipleChoiceAnswerFormatToJson(
         MultipleChoiceAnswerFormat instance) =>
     <String, dynamic>{
-      'textChoices': instance.textChoices,
       'defaultSelection': instance.defaultSelection,
       'otherField': instance.otherField,
       'maxAnswers': instance.maxAnswers,
+      'randomizeOrder': instance.randomizeOrder,
+      'textChoices': instance.textChoices,
     };
