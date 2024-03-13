@@ -24,9 +24,9 @@ MultipleChoiceAnswerFormat _$MultipleChoiceAnswerFormatFromJson(
 Map<String, dynamic> _$MultipleChoiceAnswerFormatToJson(
         MultipleChoiceAnswerFormat instance) =>
     <String, dynamic>{
+      'textChoices': instance.textChoices,
       'defaultSelection': instance.defaultSelection,
       'otherField': instance.otherField,
       'maxAnswers': instance.maxAnswers,
       'randomizeOrder': instance.randomizeOrder,
-      'textChoices': instance.textChoices,
     };

@@ -173,8 +173,8 @@ class _MyAppState extends State<MyApp> {
           buttonText: 'Let\'s go!',
           isOptional: true,
           stepIdentifier: StepIdentifier(id: 'hear_about_clearful'),
-          answerFormat: const MultipleChoiceAnswerFormat(
-            textChoices: <TextChoice>[
+          answerFormat: MultipleChoiceAnswerFormat(
+            textChoices: const <TextChoice>[
               TextChoice(text: 'Friend or Family', value: 'friend_family'),
               TextChoice(text: 'Browsing the App Store', value: 'app_store_browse'),
               TextChoice(text: 'Searching the App Store', value: 'app_store_search'),
@@ -234,8 +234,8 @@ class _MyAppState extends State<MyApp> {
           title: 'Known allergies',
           text: 'Do you have any allergies that we should be aware of?',
           isOptional: false,
-          answerFormat: const MultipleChoiceAnswerFormat(
-            textChoices: <TextChoice>[
+          answerFormat: MultipleChoiceAnswerFormat(
+            textChoices: const <TextChoice>[
               TextChoice(text: 'Penicillin', value: 'Penicillin'),
               TextChoice(text: 'Latex', value: 'Latex'),
               TextChoice(text: 'Pet', value: 'Pet'),
@@ -357,8 +357,8 @@ class _MyAppState extends State<MyApp> {
           title: 'Known allergies',
           text: 'Do you have any allergies that we should be aware of?',
           isOptional: false,
-          answerFormat: const MultipleChoiceAnswerFormat(
-            textChoices: <TextChoice>[
+          answerFormat: MultipleChoiceAnswerFormat(
+            textChoices: const <TextChoice>[
               TextChoice(text: 'Penicillin', value: 'Penicillin'),
               TextChoice(text: 'Latex', value: 'Latex'),
               TextChoice(text: 'Pet', value: 'Pet'),

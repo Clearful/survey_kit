@@ -6,7 +6,7 @@ part 'multiple_choice_auto_complete_answer_format.g.dart';
 
 @JsonSerializable()
 class MultipleChoiceAutoCompleteAnswerFormat implements AnswerFormat {
-  final List<TextChoice> _textChoices;
+  final List<TextChoice> textChoices;
   @JsonKey(defaultValue: const [])
   final List<TextChoice> defaultSelection;
   @JsonKey(defaultValue: const [])
@@ -16,20 +16,18 @@ class MultipleChoiceAutoCompleteAnswerFormat implements AnswerFormat {
   @JsonKey(defaultValue: false)
   final bool randomizeOrder;
 
-  const MultipleChoiceAutoCompleteAnswerFormat({
+  MultipleChoiceAutoCompleteAnswerFormat({
     required List<TextChoice> textChoices,
     this.defaultSelection = const [],
     this.suggestions = const [],
     this.otherField = false,
     this.randomizeOrder = false,
-  }) : _textChoices = textChoices;
-
-  List<TextChoice> get textChoices => randomizeOrder ? _shuffleList(_textChoices) : _textChoices;
+  }) : textChoices = randomizeOrder ? _shuffleList(textChoices) : textChoices;
 
   static List<TextChoice> _shuffleList(List<TextChoice> items) {
-    var list = List<TextChoice>.from(items); // Create a mutable copy
-    list.shuffle(); // Shuffle the copy
-    return list; // Return the shuffled copy
+    final mutableList = List<TextChoice>.from(items);
+    mutableList.shuffle();
+    return mutableList;
   }
 
   factory MultipleChoiceAutoCompleteAnswerFormat.fromJson(Map<String, dynamic> json) =>
