@@ -31,7 +31,7 @@ class _MultipleChoiceAutoCompleteAnswerViewState extends State<MultipleChoiceAut
     _multipleChoiceAnswer = widget.questionStep.answerFormat as MultipleChoiceAutoCompleteAnswerFormat;
     _selectedChoices = widget.result?.result?.toList() ?? _multipleChoiceAnswer.defaultSelection.toList();
     if (widget.questionStep.randomizeOrder) {
-      _selectedChoices.shuffle();
+      _multipleChoiceAnswer.textChoices.shuffle();
     }
     _startDateTime = DateTime.now();
   }

@@ -35,7 +35,7 @@ class _MultipleChoiceAnswerView extends State<MultipleChoiceAnswerView> {
     _multipleChoiceAnswer = widget.questionStep.answerFormat as MultipleChoiceAnswerFormat;
     _selectedChoices = widget.result?.result?.toList() ?? _multipleChoiceAnswer.defaultSelection.toList();
     if (widget.questionStep.randomizeOrder) {
-      _selectedChoices.shuffle();
+      _multipleChoiceAnswer.textChoices.shuffle();
     }
     _startDateTime = DateTime.now();
   }
