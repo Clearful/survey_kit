@@ -58,7 +58,7 @@ class SelectionListTile extends StatelessWidget {
             borderRadius: BorderRadius.circular(50),
             border: Border.all(
               color: isSelected ? Theme.of(context).colorScheme.primary : Theme.of(context).dividerColor,
-              width: 1,
+              width: 1.5,
             ),
           ),
           child: Row(
