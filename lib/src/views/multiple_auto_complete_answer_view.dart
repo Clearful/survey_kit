@@ -121,6 +121,7 @@ class _MultipleChoiceAutoCompleteAnswerViewState extends State<MultipleChoiceAut
                         }
                       });
                     },
+                    textCapitalization: TextCapitalization.sentences,
                     decoration: InputDecoration(
                       labelText: 'Other',
                       labelStyle: Theme.of(context).textTheme.headlineSmall,

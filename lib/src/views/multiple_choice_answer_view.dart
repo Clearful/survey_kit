@@ -116,6 +116,7 @@ class _MultipleChoiceAnswerView extends State<MultipleChoiceAnswerView> {
                         }
                       });
                     },
+                    textCapitalization: TextCapitalization.sentences,
                     decoration: InputDecoration(
                       labelText: 'Other',
                       labelStyle: Theme.of(context).textTheme.headlineSmall,
