@@ -89,7 +89,7 @@ class _MultipleChoiceAnswerView extends State<MultipleChoiceAnswerView> {
                   .toList(),
               if (_multipleChoiceAnswer.otherField) ...[
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  padding: const EdgeInsets.symmetric(vertical: 12.0),
                   child: TextField(
                     onChanged: (v) {
                       int? currentIndex;
@@ -107,7 +107,7 @@ class _MultipleChoiceAnswerView extends State<MultipleChoiceAnswerView> {
                         if (v.isEmpty && otherTextChoice != null) {
                           _selectedChoices.remove(otherTextChoice);
                         } else if (v.isNotEmpty) {
-                          final updatedTextChoice = TextChoice(text: 'Other', value: v);
+                          final updatedTextChoice = TextChoice(text: 'Other', value: v.trim());
                           if (otherTextChoice == null) {
                             _selectedChoices.add(updatedTextChoice);
                           } else if (currentIndex != null) {
@@ -120,7 +120,6 @@ class _MultipleChoiceAnswerView extends State<MultipleChoiceAnswerView> {
                       labelText: 'Other',
                       labelStyle: Theme.of(context).textTheme.headlineSmall,
                       hintStyle: Theme.of(context).inputDecorationTheme.labelStyle,
-                      hintText: 'Other',
                       floatingLabelBehavior: FloatingLabelBehavior.always,
                     ),
                     style: Theme.of(context).textTheme.bodyLarge,
