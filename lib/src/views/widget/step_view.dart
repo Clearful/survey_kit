@@ -44,7 +44,7 @@ class StepView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(top: 12.0, bottom: 4.0),
+                        padding: const EdgeInsets.only(top: 4.0, bottom: 8.0),
                         child: title,
                       ),
                       child,
