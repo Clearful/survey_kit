@@ -122,6 +122,8 @@ class _SurveyKitState extends State<SurveyKit> {
   }
 }
 
+const double _maxWidth = 640;
+
 class SurveyPage extends StatefulWidget {
   final int length;
   final Widget Function(AppBarConfiguration appBarConfiguration)? appBar;
@@ -173,28 +175,28 @@ class _SurveyPageState extends State<SurveyPage> with SingleTickerProviderStateM
         },
         builder: (BuildContext context, SurveyState state) {
           if (state is PresentingSurveyState) {
-            return SizedBox(
-              width: 800,
-              child: Scaffold(
-                appBar: state.currentStep.showAppBar
-                    ? PreferredSize(
-                        preferredSize: Size(
-                          double.infinity,
-                          70.0,
-                        ),
-                        child: widget.appBar != null
-                            ? widget.appBar!.call(state.appBarConfiguration)
-                            : SurveyAppBar(
-                                appBarConfiguration: state.appBarConfiguration,
-                              ),
-                      )
-                    : null,
-                body: TabBarView(
-                  physics: NeverScrollableScrollPhysics(),
-                  controller: tabController,
-                  children: state.steps
-                      .map(
-                        (e) => _SurveyView(
+            return Scaffold(
+              appBar: state.currentStep.showAppBar
+                  ? PreferredSize(
+                      preferredSize: Size(
+                        _maxWidth,
+                        70.0,
+                      ),
+                      child: widget.appBar != null
+                          ? widget.appBar!.call(state.appBarConfiguration)
+                          : SurveyAppBar(
+                              appBarConfiguration: state.appBarConfiguration,
+                            ),
+                    )
+                  : null,
+              body: TabBarView(
+                physics: NeverScrollableScrollPhysics(),
+                controller: tabController,
+                children: state.steps
+                    .map(
+                      (e) => SizedBox(
+                        width: _maxWidth,
+                        child: _SurveyView(
                           id: e.stepIdentifier.id,
                           createView: () => e.createView(
                             questionResult: state.questionResults.firstWhereOrNull(
@@ -202,9 +204,9 @@ class _SurveyPageState extends State<SurveyPage> with SingleTickerProviderStateM
                             ),
                           ),
                         ),
-                      )
-                      .toList(),
-                ),
+                      ),
+                    )
+                    .toList(),
               ),
             );
           } else if (state is SurveyResultState && state.currentStep != null) {
