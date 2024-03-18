@@ -176,36 +176,40 @@ class _SurveyPageState extends State<SurveyPage> with SingleTickerProviderStateM
         builder: (BuildContext context, SurveyState state) {
           if (state is PresentingSurveyState) {
             return SizedBox(
-              width: _maxWidth,
-              child: Scaffold(
-                appBar: state.currentStep.showAppBar
-                    ? PreferredSize(
-                        preferredSize: Size(
-                          double.infinity,
-                          70.0,
-                        ),
-                        child: widget.appBar != null
-                            ? widget.appBar!.call(state.appBarConfiguration)
-                            : SurveyAppBar(
-                                appBarConfiguration: state.appBarConfiguration,
+              width: _maxWidth + 24,
+              // This is to give the back arrow hover state more breathing room.
+              child: SizedBox(
+                width: _maxWidth,
+                child: Scaffold(
+                  appBar: state.currentStep.showAppBar
+                      ? PreferredSize(
+                          preferredSize: Size(
+                            double.infinity,
+                            70.0,
+                          ),
+                          child: widget.appBar != null
+                              ? widget.appBar!.call(state.appBarConfiguration)
+                              : SurveyAppBar(
+                                  appBarConfiguration: state.appBarConfiguration,
+                                ),
+                        )
+                      : null,
+                  body: TabBarView(
+                    physics: NeverScrollableScrollPhysics(),
+                    controller: tabController,
+                    children: state.steps
+                        .map(
+                          (e) => _SurveyView(
+                            id: e.stepIdentifier.id,
+                            createView: () => e.createView(
+                              questionResult: state.questionResults.firstWhereOrNull(
+                                (element) => element.id == e.stepIdentifier,
                               ),
-                      )
-                    : null,
-                body: TabBarView(
-                  physics: NeverScrollableScrollPhysics(),
-                  controller: tabController,
-                  children: state.steps
-                      .map(
-                        (e) => _SurveyView(
-                          id: e.stepIdentifier.id,
-                          createView: () => e.createView(
-                            questionResult: state.questionResults.firstWhereOrNull(
-                              (element) => element.id == e.stepIdentifier,
                             ),
                           ),
-                        ),
-                      )
-                      .toList(),
+                        )
+                        .toList(),
+                  ),
                 ),
               ),
             );
